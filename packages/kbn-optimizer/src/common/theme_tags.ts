@@ -12,14 +12,16 @@ import { ascending } from './array_helpers';
 const tags = (...themeTags: string[]) =>
   Object.freeze(themeTags.sort(ascending((tag) => tag)) as ThemeTag[]);
 
-const validTag = (tag: any): tag is ThemeTag => ALL_THEMES.includes(tag);
+const validTag = (tag: any): tag is ThemeTag =>
+  ALL_THEMES.includes(tag) || EXPERIMENTAL_THEMES.includes(tag);
 const isArrayOfStrings = (input: unknown): input is string[] =>
   Array.isArray(input) && input.every((v) => typeof v === 'string');
 
 export type ThemeTags = readonly ThemeTag[];
-export type ThemeTag = 'v8light' | 'v8dark';
+export type ThemeTag = 'v8light' | 'v8dark' | 'borealislight' | 'borealisdark';
 export const DEFAULT_THEMES = tags('v8light', 'v8dark');
-export const ALL_THEMES = tags('v8light', 'v8dark');
+export const EXPERIMENTAL_THEMES = tags('borealislight', 'borealisdark');
+export const ALL_THEMES = tags(...DEFAULT_THEMES);
 
 export function parseThemeTags(input?: any): ThemeTags {
   if (!input) {
@@ -28,6 +30,10 @@ export function parseThemeTags(input?: any): ThemeTags {
 
   if (input === '*') {
     return ALL_THEMES;
+  }
+
+  if (input === 'experimental') {
+    return [...DEFAULT_THEMES, ...EXPERIMENTAL_THEMES];
   }
 
   if (typeof input === 'string') {

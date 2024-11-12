@@ -11,10 +11,11 @@ import { schema } from '@kbn/config-schema';
 import { i18n } from '@kbn/i18n';
 import type { ThemeVersion } from '@kbn/ui-shared-deps-npm';
 import type { UiSettingsParams } from '@kbn/core-ui-settings-common';
+import { ALL_THEMES } from '@kbn/optimizer/src/common';
 
 function parseThemeTags() {
   if (!process.env.KBN_OPTIMIZER_THEMES || process.env.KBN_OPTIMIZER_THEMES === '*') {
-    return ['v8light', 'v8dark'];
+    return ALL_THEMES;
   }
 
   return process.env.KBN_OPTIMIZER_THEMES.split(',').map((t) => t.trim());
@@ -98,10 +99,13 @@ export const getThemeSettings = (
         defaultMessage: 'Theme',
       }),
       type: 'select',
-      options: ['amsterdam'],
+      options: ['amsterdam', 'borealis'],
       optionLabels: {
         amsterdam: i18n.translate('core.ui_settings.params.themeName.options.amsterdam', {
           defaultMessage: 'Amsterdam',
+        }),
+        borealis: i18n.translate('core.ui_settings.params.themeName.options.borealis', {
+          defaultMessage: 'Borealis',
         }),
       },
       value: 'amsterdam',
