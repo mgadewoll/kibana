@@ -131,6 +131,7 @@ module.exports = {
   // This happens when we run jest tests with --watch after node20+
   globals: {
     structuredClone: {},
+    __kbnThemeTag__: 'borealislight',
   },
 
   testResultsProcessor:

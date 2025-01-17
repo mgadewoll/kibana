@@ -18,3 +18,15 @@ export {
   euiThemeVars,
   _setDarkMode,
 } from './src/theme';
+export {
+  euiPaletteColorBlind,
+  euiPaletteColorBlindBehindText,
+  euiPaletteForStatus,
+  euiPaletteForTemperature,
+  euiPaletteComplementary,
+  euiPaletteRed,
+  euiPaletteGreen,
+  euiPaletteCool,
+  euiPaletteWarm,
+  euiPaletteGray,
+} from './src/palettes';
