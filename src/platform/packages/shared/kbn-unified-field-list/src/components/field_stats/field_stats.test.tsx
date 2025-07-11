@@ -146,6 +146,17 @@ describe('UnifiedFieldList FieldStats', () => {
     return wrapper!;
   }
 
+  const getProgressText = (wrapper: ReactWrapper) => {
+    let text = '';
+    const labels = wrapper.find('div.euiProgress__data');
+
+    labels.forEach((element, i) => {
+      text += element.text();
+    });
+
+    return text;
+  };
+
   beforeEach(() => {
     (loadFieldStats as jest.Mock).mockReset();
     (loadFieldStats as jest.Mock).mockImplementation(() => Promise.resolve({}));
@@ -433,9 +444,12 @@ describe('UnifiedFieldList FieldStats', () => {
       'Calculated from 1624 records.'
     );
 
-    expect(wrapper.text()).toBe(
-      // eslint-disable-next-line prettier/prettier
-      'Top values\"success\"41.5%0.41533251231527096\"info\"37.1%0.3713054187192118\"security\"10.1%0.10129310344827586\"warning\"5.0%0.050492610837438424\"error\"3.4%0.03417487684729064\"login\"2.7%0.027401477832512317Calculated from 1624 records.'
+    expect(wrapper.text()).toContain('Top values');
+
+    const text = getProgressText(wrapper);
+
+    expect(text).toBe(
+      '"success"41.5%"info"37.1%"security"10.1%"warning"5.0%"error"3.4%"login"2.7%'
     );
   });
 
@@ -507,9 +521,16 @@ describe('UnifiedFieldList FieldStats', () => {
 
     expect(loadFieldStats).toHaveBeenCalledTimes(1);
 
-    expect(wrapper.text()).toBe(
-      // eslint-disable-next-line prettier/prettier
-      'Examples\"success\"41.5%0.41533251231527096\"info\"37.1%0.3713054187192118\"security\"10.1%0.10129310344827586\"warning\"5.0%0.050492610837438424\"error\"3.4%0.03417487684729064\"login\"2.7%0.027401477832512317Calculated from 1624 records.'
+    expect(wrapper.text()).toContain('Examples');
+
+    const text = getProgressText(wrapper);
+
+    expect(text).toBe(
+      '"success"41.5%"info"37.1%"security"10.1%"warning"5.0%"error"3.4%"login"2.7%'
+    );
+
+    expect(wrapper.find('[data-test-subj="testing-statsFooter"]').first().text()).toBe(
+      'Calculated from 1624 records.'
     );
   });
 
@@ -696,8 +717,14 @@ describe('UnifiedFieldList FieldStats', () => {
 
     expect(loadFieldStats).toHaveBeenCalledTimes(1);
 
-    expect(wrapper.text()).toBe(
-      'Toggle either theTop valuesDistribution1273.9%0.73913043478260861326.1%0.2608695652173913Calculated from 23 sample records.'
+    expect(wrapper.text()).toContain('Toggle either theTop valuesDistribution');
+
+    const text = getProgressText(wrapper);
+
+    expect(text).toBe('1273.9%1326.1%');
+
+    expect(wrapper.find('[data-test-subj="testing-statsFooter"]').first().text()).toBe(
+      'Calculated from 23 sample records.'
     );
   });
 
