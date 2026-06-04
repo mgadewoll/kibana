@@ -2300,10 +2300,9 @@
     semver "7.7.4"
     topojson-client "^3.1.0"
 
-"@elastic/eslint-plugin-eui@2.13.0":
+"@elastic/eslint-plugin-eui@file:./eslint_plugin_eui_2.13.0_callout_rules_03.tgz":
   version "2.13.0"
-  resolved "https://registry.yarnpkg.com/@elastic/eslint-plugin-eui/-/eslint-plugin-eui-2.13.0.tgz#b9c079532257b7d4c46e3004ecb7b1f78f00a6b9"
-  integrity sha512-Itl7zn88GEYRAqfmuRzViNy03nVHkIVLAvtjIC0b3lhjBnJgUbEG8ImfdYUExMiGraFE+2/k6v/Z8LbWXxO+JA==
+  resolved "file:./eslint_plugin_eui_2.13.0_callout_rules_03.tgz#3ac48cfa57b92457fc61f8907ae976910ad42c07"
 
 "@elastic/esql@4.4.0":
   version "4.4.0"
