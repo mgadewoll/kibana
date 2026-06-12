@@ -385,6 +385,11 @@ module.exports = {
     'no-prototype-builtins': 'error',
 
     /**
+     * kbn-ui rules
+     */
+    '@kbn/kbn-ui/prefer_kbn_ui_callout': 'warn',
+
+    /**
      * EUI Team rules
      */
 
