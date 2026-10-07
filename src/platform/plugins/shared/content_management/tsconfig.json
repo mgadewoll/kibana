@@ -15,6 +15,7 @@
     "@kbn/core-saved-objects-api-server",
     "@kbn/saved-objects-settings",
     "@kbn/core-http-server",
+    "@kbn/core-http-browser",
     "@kbn/content-management-favorites-server",
     "@kbn/usage-collection-plugin",
     "@kbn/object-versioning-utils",

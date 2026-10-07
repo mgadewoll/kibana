@@ -8,6 +8,7 @@
  */
 
 import { BehaviorSubject } from 'rxjs';
+import { buildPath } from '@kbn/core-http-browser';
 import type { InternalHttpSetup } from '@kbn/core-http-browser-internal';
 
 import type { UiSettingsState } from '@kbn/core-ui-settings-browser';
@@ -104,9 +105,13 @@ export class UiSettingsApi {
    * Sends a validation request to the server for the provided key+value pair.
    */
   public async validate(key: string, value: any): Promise<ValidationApiResponse> {
-    return await this.sendRequest('POST', `/internal/kibana/settings/${key}/validate`, {
-      value,
-    });
+    return await this.sendRequest(
+      'POST',
+      buildPath('/internal/kibana/settings/{key}/validate', { key }),
+      {
+        value,
+      }
+    );
   }
 
   /**

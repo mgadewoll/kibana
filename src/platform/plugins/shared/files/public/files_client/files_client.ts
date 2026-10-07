@@ -8,6 +8,7 @@
  */
 
 import type { HttpStart } from '@kbn/core/public';
+import { buildPath } from '@kbn/core-http-browser';
 import type { FileKindBrowser } from '@kbn/shared-ux-file-types';
 import type { ScopedFilesClient, FilesClient } from '../types';
 import type { FileKindsRegistryImpl } from '../../common/file_kinds_registry';
@@ -25,26 +26,38 @@ export const apiRoutes = {
   /**
    * Scoped to file kind
    */
-  getCreateFileRoute: (fileKind: string) => `${FILES_API_BASE_PATH}/${fileKind}`,
-  getUploadRoute: (fileKind: string, id: string) => `${FILES_API_BASE_PATH}/${fileKind}/${id}/blob`,
+  getCreateFileRoute: (fileKind: string) =>
+    buildPath(`${FILES_API_BASE_PATH}/{fileKind}`, { fileKind }),
+  getUploadRoute: (fileKind: string, id: string) =>
+    buildPath(`${FILES_API_BASE_PATH}/{fileKind}/{id}/blob`, { fileKind, id }),
   getDownloadRoute: (fileKind: string, id: string, fileName?: string) =>
-    `${FILES_API_BASE_PATH}/${fileKind}/${id}/blob${fileName ? '/' + fileName : ''}`,
-  getUpdateRoute: (fileKind: string, id: string) => `${FILES_API_BASE_PATH}/${fileKind}/${id}`,
-  getDeleteRoute: (fileKind: string, id: string) => `${FILES_API_BASE_PATH}/${fileKind}/${id}`,
-  getListRoute: (fileKind: string) => `${FILES_API_BASE_PATH}/${fileKind}/list`,
-  getByIdRoute: (fileKind: string, id: string) => `${FILES_API_BASE_PATH}/${fileKind}/${id}`,
+    buildPath(`${FILES_API_BASE_PATH}/{fileKind}/{id}/blob/{fileName?}`, {
+      fileKind,
+      id,
+      fileName,
+    }),
+  getUpdateRoute: (fileKind: string, id: string) =>
+    buildPath(`${FILES_API_BASE_PATH}/{fileKind}/{id}`, { fileKind, id }),
+  getDeleteRoute: (fileKind: string, id: string) =>
+    buildPath(`${FILES_API_BASE_PATH}/{fileKind}/{id}`, { fileKind, id }),
+  getListRoute: (fileKind: string) =>
+    buildPath(`${FILES_API_BASE_PATH}/{fileKind}/list`, { fileKind }),
+  getByIdRoute: (fileKind: string, id: string) =>
+    buildPath(`${FILES_API_BASE_PATH}/{fileKind}/{id}`, { fileKind, id }),
 
   /**
    * Scope to file shares and file kind
    */
-  getShareRoute: (fileKind: string, id: string) => `${FILES_SHARE_API_BASE_PATH}/${fileKind}/${id}`,
-  getListSharesRoute: (fileKind: string) => `${FILES_SHARE_API_BASE_PATH}/${fileKind}`,
+  getShareRoute: (fileKind: string, id: string) =>
+    buildPath(`${FILES_SHARE_API_BASE_PATH}/{fileKind}/{id}`, { fileKind, id }),
+  getListSharesRoute: (fileKind: string) =>
+    buildPath(`${FILES_SHARE_API_BASE_PATH}/{fileKind}`, { fileKind }),
 
   /**
    * Public routes
    */
   getPublicDownloadRoute: (fileName?: string) =>
-    `${FILES_PUBLIC_API_BASE_PATH}/blob${fileName ? '/' + fileName : ''}`,
+    buildPath(`${FILES_PUBLIC_API_BASE_PATH}/blob/{fileName?}`, { fileName }),
 
   /**
    * Top-level routes

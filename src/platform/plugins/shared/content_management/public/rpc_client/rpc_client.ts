@@ -8,6 +8,7 @@
  */
 
 import type { HttpSetup } from '@kbn/core/public';
+import { buildPath } from '@kbn/core-http-browser';
 import { API_ENDPOINT } from '../../common';
 import type {
   GetIn,
@@ -64,9 +65,10 @@ export class RpcClient implements CrudClient {
 
   private sendMessage = async <O = unknown>(name: ProcedureName, input: any): Promise<O> => {
     try {
-      const response = await this.http.post<{ result: O }>(`${API_ENDPOINT}/${name}`, {
-        body: JSON.stringify(input),
-      });
+      const response = await this.http.post<{ result: O }>(
+        buildPath(`${API_ENDPOINT}/{name}`, { name }),
+        { body: JSON.stringify(input) }
+      );
       return response.result;
     } catch (e) {
       // eslint-disable-next-line no-console
